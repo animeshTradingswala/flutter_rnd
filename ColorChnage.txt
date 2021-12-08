@@ -2,28 +2,39 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class ColorChnage extends StatefulWidget {
+class FlameGameDashBoard extends StatefulWidget {
+  const FlameGameDashBoard({Key? key}) : super(key: key);
 
   @override
-  _ColorChnageState createState() => _ColorChnageState();
+  _FlameGameDashBoardState createState() => _FlameGameDashBoardState();
 }
 
-class _ColorChnageState extends State<ColorChnage> {
+class _FlameGameDashBoardState extends State<FlameGameDashBoard> {
   int r = 255;
   int g = 255;
   int b = 255;
   double o = 1;
   String x = 'Change Color';
+  String y = 'Change alphabet';
+  int asci_caps = 65;
+  int asci_caps_off = 97;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      maintainBottomViewPadding: true,
       child: Scaffold(
+        appBar: AppBar(
+          title: Text('All are randoms'),
+        ),
         backgroundColor: Color.fromRGBO(r, g, b, o),
         body: Center(
           child: Column(
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(
+                height: 15,
+              ),
               Text('Color code rgbo : Color.fromRGBO($r, $g, $b, $o)'),
               ElevatedButton(
                 child: Text(x),
@@ -33,10 +44,47 @@ class _ColorChnageState extends State<ColorChnage> {
                     g = Random().nextInt(255);
                     b = Random().nextInt(255);
                     o = Random().nextDouble();
-                    print('rgb - $r $g $b $o');
                   });
                 },
-              )
+              ),
+              asci_caps >= 65 && asci_caps <= 90
+                  ? Text(
+                      'Your alphabet is (CAPS_ON-($asci_caps)): ${String.fromCharCode(asci_caps)}')
+                  : const Text(
+                      'Not possible',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                      ),
+                    ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    asci_caps = Random().nextInt(90);
+                  });
+                },
+                child: Text(x),
+              ),
+              asci_caps_off >= 97 && asci_caps_off <= 122
+                  ? Text(
+                      'Your alphabet is (CAPS_OFF($asci_caps_off)): ${String.fromCharCode(asci_caps_off)}')
+                  : const Text(
+                      'Not possible',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                      ),
+                    ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    asci_caps_off = Random().nextInt(122);
+                  });
+                },
+                child: Text(x),
+              ),
             ],
           ),
         ),
