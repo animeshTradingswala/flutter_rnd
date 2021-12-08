@@ -1,0 +1,46 @@
+import 'dart:math';
+
+import 'package:flutter/material.dart';
+
+class ColorChnage extends StatefulWidget {
+
+  @override
+  _ColorChnageState createState() => _ColorChnageState();
+}
+
+class _ColorChnageState extends State<ColorChnage> {
+  int r = 255;
+  int g = 255;
+  int b = 255;
+  double o = 1;
+  String x = 'Change Color';
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Color.fromRGBO(r, g, b, o),
+        body: Center(
+          child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text('Color code rgbo : Color.fromRGBO($r, $g, $b, $o)'),
+              ElevatedButton(
+                child: Text(x),
+                onPressed: () {
+                  setState(() {
+                    r = Random().nextInt(255);
+                    g = Random().nextInt(255);
+                    b = Random().nextInt(255);
+                    o = Random().nextDouble();
+                    print('rgb - $r $g $b $o');
+                  });
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
